@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Eclipse RCP" uid="org.eclipse.rcp.id" version="4.24.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="Eclipse RCP SDK" uid="org.eclipse.rcp.sdk.id" version="4.24.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -15,8 +15,10 @@
       </vmArgsMac>
    </launcherArgs>
 
+   <windowImages/>
+
    <launcher name="eclipse">
-      <freebsd icon="icons/icon.xpm"/>
+      <linux icon="icons/icon.xpm"/>
       <macosx icon="icons/Eclipse.icns"/>
       <win useIco="false">
          <bmp/>
@@ -177,6 +179,7 @@ United States, other countries, or both.
 
    <features>
       <feature id="org.eclipse.rcp"/>
+      <feature id="org.eclipse.rcp.source"/>
    </features>
 
    <configurations>

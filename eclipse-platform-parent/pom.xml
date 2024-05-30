@@ -77,9 +77,9 @@
       'eclipiserun-repo' repository, such as for computing .api-descriptions and
       generating API Tools reports.
     -->
-    <eclipserun-repo>https://download.eclipse.org/eclipse/updates/4.24/R-4.24-202206070700/</eclipserun-repo>
+    <eclipserun-repo>https://download.eclipse.org/eclipse/updates/4.24/</eclipserun-repo>
     
-    <comparator.repo>https://download.eclipse.org/eclipse/updates/4.24/R-4.24-202206070700</comparator.repo>
+    <comparator.repo>https://download.eclipse.org/eclipse/updates/4.24</comparator.repo>
 
     <!-- only used when Tycho snapshot repo is enabled in <pluginRepositories> further down -->
     <tycho-snapshot-repo.url>https://repo.eclipse.org/content/repositories/tycho-snapshots/</tycho-snapshot-repo.url>
@@ -136,7 +136,7 @@
     <qualifier.format>'v'yyyyMMdd-HHmm</qualifier.format>
 
     <compare-version-with-baselines.skip>true</compare-version-with-baselines.skip>
-    <previous-release.baseline>https://download.eclipse.org/eclipse/updates/4.24/R-4.24-202206070700//</previous-release.baseline>
+    <previous-release.baseline>https://download.eclipse.org/eclipse/updates/4.23/R-4.23-202203080310/</previous-release.baseline>
 
     <!--
       Declaration of properties that contribute to the arg line for the tycho-surefire-plugin.
@@ -253,6 +253,12 @@
           </target>
           <environments>
             <environment>
+              <os>freebsd</os>
+              <ws>gtk</ws>
+              <arch>amd64</arch>
+            </environment>
+<!--
+            <environment>
               <os>linux</os>
               <ws>gtk</ws>
               <arch>x86_64</arch>
@@ -267,6 +273,7 @@
               <ws>gtk</ws>
               <arch>aarch64</arch>
             </environment>
+-->
             <environment>
               <os>win32</os>
               <ws>win32</ws>

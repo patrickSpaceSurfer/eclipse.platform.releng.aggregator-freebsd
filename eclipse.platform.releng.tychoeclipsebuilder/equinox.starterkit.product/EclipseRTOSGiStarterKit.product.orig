@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Eclipse RCP" uid="org.eclipse.rcp.id" version="4.24.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="EclipseRT OSGi Starter Kit" uid="org.eclipse.rt.osgistarterkit.product" version="4.24.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
-      <programArgs>--launcher.appendVmargs
+      <programArgs>-console -nosplash -consolelog -noexit
       </programArgs>
-      <vmArgs>-Xms40m -Xmx384m
+      <vmArgs>-Declipse.ignoreApp=true
       </vmArgs>
-      <vmArgsMac>-Xdock:icon=../Resources/Eclipse.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
 
-   <launcher name="eclipse">
-      <freebsd icon="icons/icon.xpm"/>
-      <macosx icon="icons/Eclipse.icns"/>
-      <win useIco="false">
+   <windowImages/>
+
+   <launcher name="rt">
+      <linux icon="icon.xpm"/>
+      <macosx icon="rt.icns"/>
+      <win useIco="true">
+         <ico path="rt.ico"/>
          <bmp/>
       </win>
    </launcher>
@@ -176,14 +179,17 @@ United States, other countries, or both.
    </plugins>
 
    <features>
-      <feature id="org.eclipse.rcp"/>
+      <feature id="org.eclipse.equinox.p2.core.feature"/>
+      <feature id="org.eclipse.equinox.core.feature"/>
    </features>
 
    <configurations>
-      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.equinox.frameworkadmin.equinox" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.equinox.p2.console" autoStart="true" startLevel="3" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator.manipulator" autoStart="true" startLevel="3" />
+      <property name="eclipse.ignoreApp" value="true" />
+      <property name="osgi.noShutdown" value="true" />
    </configurations>
 
 </product>
