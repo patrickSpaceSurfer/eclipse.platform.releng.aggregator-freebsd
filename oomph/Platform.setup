@@ -6,12 +6,14 @@
     xmlns:git="http://www.eclipse.org/oomph/setup/git/1.0"
     xmlns:jdt="http://www.eclipse.org/oomph/setup/jdt/1.0"
     xmlns:predicates="http://www.eclipse.org/oomph/predicates/1.0"
+    xmlns:projects="http://www.eclipse.org/oomph/setup/projects/1.0"
     xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
     xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
     xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
     xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
+    xmlns:workbench="http://www.eclipse.org/oomph/setup/workbench/1.0"
     xmlns:workingsets="http://www.eclipse.org/oomph/workingsets/1.0"
-    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore http://www.eclipse.org/oomph/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/WorkingSets.ecore"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 https://raw.githubusercontent.com/eclipse-oomph/oomph/master/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 https://raw.githubusercontent.com/eclipse-oomph/oomph/master/setups/models/JDT.ecore http://www.eclipse.org/oomph/predicates/1.0 https://raw.githubusercontent.com/eclipse-oomph/oomph/master/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/projects/1.0 https://raw.githubusercontent.com/eclipse-oomph/oomph/master/setups/models/Projects.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 https://raw.githubusercontent.com/eclipse-oomph/oomph/master/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 https://raw.githubusercontent.com/eclipse-oomph/oomph/master/setups/models/SetupWorkingSets.ecore http://www.eclipse.org/oomph/setup/workbench/1.0 https://raw.githubusercontent.com/eclipse-oomph/oomph/master/setups/models/Workbench.ecore http://www.eclipse.org/oomph/workingsets/1.0 https://raw.githubusercontent.com/eclipse-oomph/oomph/master/setups/models/WorkingSets.ecore"
     name="platform"
     label="Platform">
   <annotation
@@ -68,8 +70,6 @@
         name="org.eclipse.jdt.feature.group"/>
     <requirement
         name="org.eclipse.pde.feature.group"/>
-    <requirement
-        name="org.eclipse.pde.api.tools.ee.feature.feature.group"/>
   </setupTask>
   <setupTask
       xsi:type="setup:VariableTask"
@@ -107,8 +107,8 @@
   </setupTask>
   <setupTask
       xsi:type="jdt:JRETask"
-      version="JavaSE-11"
-      location="${jre.location-11}"/>
+      version="JavaSE-17"
+      location="${jre.location-17}"/>
   <setupTask
       xsi:type="setup.targlets:TargletTask"
       targetName="Modular API Baseline Target"
@@ -130,7 +130,7 @@
   <setupTask
       xsi:type="setup.targlets:TargletTask">
     <targlet
-        name="Platform"
+        name="Platform Root"
         activeRepositoryList="CBI+Orbit">
       <requirement
           name="org.eclipse.platform.feature.group"/>
@@ -149,8 +149,17 @@
       </repositoryList>
     </targlet>
   </setupTask>
+  <setupTask
+      xsi:type="workbench:FileAssociationsTask">
+    <mapping
+        filePattern="*.yml"
+        defaultEditorID="org.eclipse.ui.genericeditor.GenericEditor"/>
+    <mapping
+        filePattern="*.json"
+        defaultEditorID="org.eclipse.ui.genericeditor.GenericEditor"/>
+  </setupTask>
   <project name="platform"
-      label="Base, Update, and Ant">
+      label="Ant, Base, Debug, Runtime, Resources, Team, User Assistance, and Update">
     <setupTask
         xsi:type="git:GitCloneTask"
         id="github.clone.platform"
@@ -170,13 +179,40 @@
           <value>remoteURI</value>
         </detail>
       </annotation>
+      <configSections
+          name="branch">
+        <properties
+            key="autoSetupRebase"
+            value="always"/>
+      </configSections>
       <description>Platform Base, Update, and Ant</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:ResourceCreationTask"
+        excludedTriggers="BOOTSTRAP"
+        targetURL="${github.clone.platform.location|uri/ua/infocenter-web/.project}"
+        encoding="UTF-8">
+      <content>
+        &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>
+        &lt;projectDescription>
+        	&lt;name>infocenter-web&lt;/name>
+        	&lt;comment>&lt;/comment>
+        	&lt;projects>
+        	&lt;/projects>
+        	&lt;natures>
+        	&lt;/natures>
+        &lt;/projectDescription>
+
+      </content>
     </setupTask>
     <setupTask
         xsi:type="setup.targlets:TargletTask">
       <targlet
-          name="Platform Base, Update, and Ant"
+          name="Platform"
           activeRepositoryList="${eclipse.target.platform}">
+        <requirement
+            name="org.eclipse.test.performance"
+            optional="true"/>
         <requirement
             name="*"/>
         <sourceLocator
@@ -184,17 +220,16 @@
       </targlet>
     </setupTask>
     <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask">
+        xsi:type="setup.workingsets:WorkingSetTask"
+        id="platform.base.workingsets">
       <workingSet
           name="Platform Base">
         <predicate
             xsi:type="predicates:AndPredicate">
           <operand
               xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.platform"/>
-          <operand
-              xsi:type="predicates:LocationPredicate"
-              pattern=".*/eclipse\.platform/platform/.*"/>
+              project="org.eclipse.platform"
+              relativePathPattern="platform/.*"/>
         </predicate>
       </workingSet>
       <workingSet
@@ -203,13 +238,11 @@
             xsi:type="predicates:AndPredicate">
           <operand
               xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.ant.core"/>
-          <operand
-              xsi:type="predicates:LocationPredicate"
-              pattern=".*/eclipse\.platform/ant/.*"/>
+              project="org.eclipse.ant.core"
+              relativePathPattern="ant/.*"/>
           <operand
               xsi:type="workingsets:ExclusionPredicate"
-              excludedWorkingSet="//@projects[name='platform']/@setupTasks.2/@workingSets[name='Platform%20Ant%20Tests']"/>
+              excludedWorkingSet="//'platform.base.workingsets'/@workingSets[name='Platform%20Ant%20Tests']"/>
         </predicate>
       </workingSet>
       <workingSet
@@ -218,76 +251,37 @@
             xsi:type="predicates:AndPredicate">
           <operand
               xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.ant.tests.core"/>
+              project="org.eclipse.ant.tests.core"
+              relativePathPattern="ant/.*"/>
           <operand
-              xsi:type="predicates:LocationPredicate"
-              pattern=".*/eclipse\.platform/ant/.*\.tests\..*"/>
+              xsi:type="predicates:NamePredicate"
+              pattern=".*\.tests\..*"/>
         </predicate>
       </workingSet>
-      <workingSet
-          name="Platform Update">
-        <predicate
-            xsi:type="predicates:AndPredicate">
-          <operand
-              xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.update.configurator"/>
-          <operand
-              xsi:type="predicates:LocationPredicate"
-              pattern=".*/eclipse\.platform/update/.*"/>
-        </predicate>
-      </workingSet>
-    </setupTask>
-    <stream
-        name="master"
-        label="Master"/>
-  </project>
-  <project name="debug"
-      label="Debug">
-    <setupTask
-        xsi:type="git:GitCloneTask"
-        id="github.clone.platform.debug"
-        remoteURI="eclipse-platform/eclipse.platform.debug">
-      <annotation
-          source="http://www.eclipse.org/oomph/setup/InducedChoices">
-        <detail
-            key="inherit">
-          <value>github.remoteURIs</value>
-        </detail>
-        <detail
-            key="label">
-          <value>Platform Debug Github Repository</value>
-        </detail>
-        <detail
-            key="target">
-          <value>remoteURI</value>
-        </detail>
-      </annotation>
-      <description>Platform Debug</description>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask">
-      <targlet
-          name="Platform Debug"
-          activeRepositoryList="${eclipse.target.platform}">
-        <requirement
-            name="*"/>
-        <sourceLocator
-            rootFolder="${github.clone.platform.debug.location}"/>
-      </targlet>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask"
-        id="platform.debug.workingsets">
       <workingSet
           name="Platform Debug">
         <predicate
             xsi:type="predicates:AndPredicate">
           <operand
               xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.debug.core"/>
+              project="org.eclipse.debug.core"
+              relativePathPattern="debug/.*"/>
           <operand
               xsi:type="workingsets:ExclusionPredicate"
-              excludedWorkingSet="//'platform.debug.workingsets'/@workingSets[name='Platform%20Debug%20Tests'] //'platform.debug.workingsets'/@workingSets[name='Platform%20Debug%20Examples']"/>
+              excludedWorkingSet="//'platform.base.workingsets'/@workingSets[name='Platform%20Debug%20Examples'] //'platform.base.workingsets'/@workingSets[name='Platform%20Debug%20Tests']"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Debug Examples">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.debug.core"
+              relativePathPattern="debug/.*"/>
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern=".*\.examples\..*"/>
         </predicate>
       </workingSet>
       <workingSet
@@ -296,29 +290,138 @@
             xsi:type="predicates:AndPredicate">
           <operand
               xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.debug.tests"/>
+              project="org.eclipse.debug.core"
+              relativePathPattern="debug/.*"/>
           <operand
               xsi:type="predicates:NamePredicate"
               pattern=".*\.tests.*"/>
         </predicate>
       </workingSet>
       <workingSet
-          name="Platform Debug Examples">
+          name="Platform Runtime">
         <predicate
             xsi:type="predicates:AndPredicate">
           <operand
-              xsi:type="predicates:NamePredicate"
-              pattern=".*\.examples\..*"/>
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.core.runtime"
+              relativePathPattern="runtime/(bundles|features).*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Runtime Tests">
+        <predicate
+            xsi:type="predicates:AndPredicate">
           <operand
               xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.debug.examples.core"/>
+              project="org.eclipse.core.runtime"
+              relativePathPattern="runtime/tests/.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Resources">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.core.resources"
+              relativePathPattern="resources/(bundles|examples)/.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Resources Tests">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.core.resources"
+              relativePathPattern="resources/tests/.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Team">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.team.core"
+              relativePathPattern="team/bundles/.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Team Examples">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.team.core"
+              relativePathPattern="team/examples/.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Team Tests">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.team.core"
+              relativePathPattern="team/tests/.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform UA">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.help"
+              relativePathPattern="ua/.*"/>
+          <operand
+              xsi:type="workingsets:ExclusionPredicate"
+              excludedWorkingSet="//'platform.base.workingsets'/@workingSets[name='Platform%20UA%20Examples'] //'platform.base.workingsets'/@workingSets[name='Platform%20UA%20Tests']"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform UA Tests"
+          id="">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.help"
+              relativePathPattern="ua/.*"/>
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern=".*\.tests.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform UA Examples"
+          id="">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.help"
+              relativePathPattern="ua/.*"/>
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern=".*\.examples.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Update">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.update.configurator"
+              relativePathPattern="update/.*"/>
         </predicate>
       </workingSet>
     </setupTask>
     <stream
         name="master"
         label="Master"/>
-    <description>The Platform Debug support</description>
   </project>
   <project name="dependencies"
       label="Dependencies">
@@ -360,6 +463,12 @@
             <value>remoteURI</value>
           </detail>
         </annotation>
+        <configSections
+            name="branch">
+          <properties
+              key="autoSetupRebase"
+              value="always"/>
+        </configSections>
         <description>ECF</description>
       </setupTask>
       <setupTask
@@ -371,6 +480,56 @@
             pattern="(?im)public void log\(@SuppressWarnings\(&quot;rawtypes&quot;\) ServiceReference sr, int level, String message, Throwable exception\) \{\s+doLog\(sr, level, message, exception\);\s+\}\s+()\}(\s+)$">
           <substitution>	public org.osgi.service.log.Logger getLogger(String name) {\2		throw new UnsupportedOperationException();\2	}\2\2	public org.osgi.service.log.Logger getLogger(Class&lt;?> clazz) {\2		throw new UnsupportedOperationException();\2	}\2\2	public &lt;L extends org.osgi.service.log.Logger> L getLogger(String name, Class&lt;L> LoggerType) {\2		throw new UnsupportedOperationException();\2	}\2\2	public &lt;L extends org.osgi.service.log.Logger> L getLogger(Class&lt;?> clazz, Class&lt;L> LoggerType) {\2		throw new UnsupportedOperationException();\2	}\2	public &lt;L extends org.osgi.service.log.Logger> L getLogger(org.osgi.framework.Bundle bundle, String name, Class&lt;L> LoggerType) {\2		throw new UnsupportedOperationException();\2	}\2</substitution>
           <substitution>\2</substitution>
+        </modification>
+      </setupTask>
+      <setupTask
+          xsi:type="setup:TextModifyTask"
+          excludedTriggers="BOOTSTRAP"
+          url="${github.clone.ecf.location|uri}/releng/features/org.eclipse.ecf.filetransfer.httpclient5.feature/.project"
+          encoding="UTF-8">
+        <modification
+            pattern="(?im)(^[^&lt;].*maven.*$)">
+          <substitution>&lt;!-- \1 --></substitution>
+        </modification>
+      </setupTask>
+      <setupTask
+          xsi:type="setup:TextModifyTask"
+          excludedTriggers="BOOTSTRAP"
+          url="${github.clone.ecf.location|uri}/releng/features/org.eclipse.ecf.filetransfer.httpclientjava.feature/.project"
+          encoding="UTF-8">
+        <modification
+            pattern="(?im)(^[^&lt;].*maven.*$)">
+          <substitution>&lt;!-- \1 --></substitution>
+        </modification>
+      </setupTask>
+      <setupTask
+          xsi:type="setup:TextModifyTask"
+          excludedTriggers="BOOTSTRAP"
+          url="${github.clone.ecf.location|uri}/providers/bundles/org.eclipse.ecf.provider.filetransfer.httpclient5/.project"
+          encoding="UTF-8">
+        <modification
+            pattern="(?im)(^[^&lt;].*maven.*$)">
+          <substitution>&lt;!-- \1 --></substitution>
+        </modification>
+      </setupTask>
+      <setupTask
+          xsi:type="setup:TextModifyTask"
+          excludedTriggers="BOOTSTRAP"
+          url="${github.clone.ecf.location|uri}/providers/bundles/org.eclipse.ecf.provider.filetransfer.httpclient5.win32/.project"
+          encoding="UTF-8">
+        <modification
+            pattern="(?im)(^[^&lt;].*maven.*$)">
+          <substitution>&lt;!-- \1 --></substitution>
+        </modification>
+      </setupTask>
+      <setupTask
+          xsi:type="setup:TextModifyTask"
+          excludedTriggers="BOOTSTRAP"
+          url="${github.clone.ecf.location|uri}/providers/bundles/org.eclipse.ecf.provider.filetransfer.httpclientjava/.project"
+          encoding="UTF-8">
+        <modification
+            pattern="(?im)(^[^&lt;].*maven.*$)">
+          <substitution>&lt;!-- \1 --></substitution>
         </modification>
       </setupTask>
       <setupTask
@@ -401,17 +560,17 @@
         label="EMF">
       <setupTask
           xsi:type="git:GitCloneTask"
-          id="git.clone.emf"
-          remoteURI="emf/org.eclipse.emf">
+          id="github.clone.emf"
+          remoteURI="eclipse-emf/org.eclipse.emf">
         <annotation
             source="http://www.eclipse.org/oomph/setup/InducedChoices">
           <detail
               key="inherit">
-            <value>eclipse.git.gerrit.remoteURIs</value>
+            <value>github.remoteURIs</value>
           </detail>
           <detail
               key="label">
-            <value>EMF Git or Gerrit Repository</value>
+            <value>Platform Base, Update, and Ant Github Repository</value>
           </detail>
           <detail
               key="target">
@@ -419,10 +578,10 @@
           </detail>
         </annotation>
         <configSections
-            name="gerrit">
+            name="branch">
           <properties
-              key="createchangeid"
-              value="true"/>
+              key="autoSetupRebase"
+              value="always"/>
         </configSections>
         <description>EMF</description>
       </setupTask>
@@ -431,7 +590,8 @@
         <targlet
             name="EMF Dependency">
           <sourceLocator
-              rootFolder="${git.clone.emf.location}"/>
+              rootFolder="${github.clone.emf.location}"
+              locateNestedProjects="true"/>
         </targlet>
       </setupTask>
       <setupTask
@@ -449,54 +609,6 @@
       <description>The Platform's EMF dependencies</description>
     </project>
     <description>The Platform dependencies</description>
-  </project>
-  <project name="documentation"
-      label="Documentation">
-    <setupTask
-        xsi:type="git:GitCloneTask"
-        id="github.clone.platform.common"
-        remoteURI="eclipse-platform/eclipse.platform.common">
-      <annotation
-          source="http://www.eclipse.org/oomph/setup/InducedChoices">
-        <detail
-            key="inherit">
-          <value>github.remoteURIs</value>
-        </detail>
-        <detail
-            key="label">
-          <value>Platform Documentation Github Repository</value>
-        </detail>
-        <detail
-            key="target">
-          <value>remoteURI</value>
-        </detail>
-      </annotation>
-      <description>Platform Documentation</description>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask">
-      <targlet
-          name="Platform Documentation"
-          activeRepositoryList="${eclipse.target.platform}">
-        <requirement
-            name="*"/>
-        <sourceLocator
-            rootFolder="${github.clone.platform.common.location}"/>
-      </targlet>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask">
-      <workingSet
-          name="Platform Documentation">
-        <predicate
-            xsi:type="predicates:RepositoryPredicate"
-            project="org.eclipse.platform.doc.user"/>
-      </workingSet>
-    </setupTask>
-    <stream
-        name="master"
-        label="Master"/>
-    <description>The Platform documentation</description>
   </project>
   <project name="images"
       label="Images">
@@ -519,6 +631,12 @@
           <value>remoteURI</value>
         </detail>
       </annotation>
+      <configSections
+          name="branch">
+        <properties
+            key="autoSetupRebase"
+            value="always"/>
+      </configSections>
       <description>Platform Images</description>
     </setupTask>
     <setupTask
@@ -536,7 +654,8 @@
       </targlet>
     </setupTask>
     <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask">
+        xsi:type="setup.workingsets:WorkingSetTask"
+        id="platform.images.workingsets">
       <workingSet
           name="Platform Images">
         <predicate
@@ -551,129 +670,6 @@
         name="master"
         label="Master"/>
     <description>The Platform Images</description>
-  </project>
-  <project name="news"
-      label="News">
-    <setupTask
-        xsi:type="git:GitCloneTask"
-        id="github.clone.platform.news"
-        remoteURI="eclipse-platform/www.eclipse.org-eclipse-news">
-      <annotation
-          source="http://www.eclipse.org/oomph/setup/InducedChoices">
-        <detail
-            key="inherit">
-          <value>github.remoteURIs</value>
-        </detail>
-        <detail
-            key="label">
-          <value>Platform News Github Repository</value>
-        </detail>
-        <detail
-            key="target">
-          <value>remoteURI</value>
-        </detail>
-      </annotation>
-      <description>Platform News</description>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask">
-      <targlet
-          name="Platform News">
-        <requirement
-            name="*"/>
-        <sourceLocator
-            rootFolder="${github.clone.platform.news.location}"/>
-      </targlet>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask"
-        id="platform.news.workingsets">
-      <workingSet
-          name="Platform News">
-        <predicate
-            xsi:type="predicates:NamePredicate"
-            pattern="platform news"/>
-      </workingSet>
-    </setupTask>
-    <stream
-        name="master"
-        label="Master"/>
-    <description>The Platform news</description>
-  </project>
-  <project name="releng"
-      label="Releng">
-    <setupTask
-        xsi:type="git:GitCloneTask"
-        id="github.clone.platform.releng"
-        remoteURI="eclipse-platform/eclipse.platform.releng">
-      <annotation
-          source="http://www.eclipse.org/oomph/setup/InducedChoices">
-        <detail
-            key="inherit">
-          <value>github.remoteURIs</value>
-        </detail>
-        <detail
-            key="label">
-          <value>Platform Releng Github Repository</value>
-        </detail>
-        <detail
-            key="target">
-          <value>remoteURI</value>
-        </detail>
-      </annotation>
-      <description>Platform Releng</description>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask">
-      <targlet
-          name="Platform Releng"
-          activeRepositoryList="EGit+JGit">
-        <requirement
-            name="*"/>
-        <requirement
-            name="org.eclipse.jgit"/>
-        <requirement
-            name="org.eclipse.egit.core"/>
-        <sourceLocator
-            rootFolder="${github.clone.platform.releng.location}"/>
-        <repositoryList
-            name="EGit+JGit">
-          <repository
-              url="https://download.eclipse.org/egit/updates"/>
-        </repositoryList>
-      </targlet>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask">
-      <workingSet
-          name="Platform Releng">
-        <predicate
-            xsi:type="predicates:AndPredicate">
-          <operand
-              xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.rcp"/>
-          <operand
-              xsi:type="workingsets:ExclusionPredicate"
-              excludedWorkingSet="//@projects[name='releng']/@setupTasks.2/@workingSets[name='Platform%20Releng%20Tests']"/>
-        </predicate>
-      </workingSet>
-      <workingSet
-          name="Platform Releng Tests">
-        <predicate
-            xsi:type="predicates:AndPredicate">
-          <operand
-              xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.rcp"/>
-          <operand
-              xsi:type="predicates:NamePredicate"
-              pattern=".*tests?.*"/>
-        </predicate>
-      </workingSet>
-    </setupTask>
-    <stream
-        name="master"
-        label="Master"/>
-    <description>The Platform Releng components</description>
   </project>
   <project name="releng.aggregator"
       label="Releng Aggregator">
@@ -696,45 +692,50 @@
           <value>remoteURI</value>
         </detail>
       </annotation>
+      <configSections
+          name="branch">
+        <properties
+            key="autoSetupRebase"
+            value="always"/>
+      </configSections>
       <description>Platform Releng Aggregator</description>
     </setupTask>
     <setupTask
-        xsi:type="setup:ResourceCreationTask"
-        excludedTriggers="BOOTSTRAP"
-        targetURL="${github.clone.platform.releng.aggregator.location|uri}/eclipse.platform.releng.prereqs.sdk/.project"
-        encoding="UTF-8">
-      <content>
-        &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>
-        &lt;projectDescription>
-        	&lt;name>org.eclipse.platform.releng.prereqs.sdk&lt;/name>
-        	&lt;comment>&lt;/comment>
-        	&lt;projects>
-        	&lt;/projects>
-        	&lt;buildSpec>
-        	&lt;/buildSpec>
-        	&lt;natures>
-        	&lt;/natures>
-        &lt;/projectDescription>
-
-      </content>
+        xsi:type="projects:ProjectsImportTask"
+        id="import.project.eclipse.platform.prereqs.target">
+      <sourceLocator
+          rootFolder="${github.clone.platform.releng.aggregator.location}/eclipse.platform.releng.prereqs.sdk"/>
     </setupTask>
     <setupTask
-        xsi:type="setup.targlets:TargletTask">
+        xsi:type="setup.targlets:TargletTask"
+        predecessor="import.project.eclipse.platform.prereqs.target">
       <targlet
           name="Platform Releng Aggregator">
         <requirement
-            name="org.eclipse.platform.releng.tychoeclipsebuilder.plain.project"/>
-        <requirement
-            name="org.eclipse.platform.setup.plain.project"/>
-        <requirement
-            name="org.eclipse.platform.releng.prereqs.sdk.plain.project"/>
+            name="*"/>
         <sourceLocator
             rootFolder="${github.clone.platform.releng.aggregator.location}"
-            locateNestedProjects="true"/>
+            locateNestedProjects="true">
+          <excludedPath>eclipse.jdt</excludedPath>
+          <excludedPath>eclipse.jdt.core</excludedPath>
+          <excludedPath>eclipse.jdt.core.binaries</excludedPath>
+          <excludedPath>eclipse.jdt.debug</excludedPath>
+          <excludedPath>eclipse.jdt.ui</excludedPath>
+          <excludedPath>eclipse.pde</excludedPath>
+          <excludedPath>eclipse.platform</excludedPath>
+          <excludedPath>eclipse.platform.swt</excludedPath>
+          <excludedPath>eclipse.platform.swt.binaries</excludedPath>
+          <excludedPath>eclipse.platform.ui</excludedPath>
+          <excludedPath>equinox</excludedPath>
+          <excludedPath>rt.equinox.binaries</excludedPath>
+          <excludedPath>rt.equinox.p2</excludedPath>
+        </sourceLocator>
       </targlet>
+      <composedTarget>eclipse-sdk-prereqs</composedTarget>
     </setupTask>
     <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask">
+        xsi:type="setup.workingsets:WorkingSetTask"
+        id="releng.aggregator.workingsets">
       <workingSet
           name="Platform Releng Aggregator">
         <predicate
@@ -742,8 +743,71 @@
           <operand
               xsi:type="predicates:RepositoryPredicate"
               project="org.eclipse.platform.releng.tychoeclipsebuilder"/>
+          <operand
+              xsi:type="workingsets:ExclusionPredicate"
+              excludedWorkingSet="//'releng.aggregator.workingsets'/@workingSets[name='Platform%20Documentation'] //'releng.aggregator.workingsets'/@workingSets[name='Platform%20Releng'] //'releng.aggregator.workingsets'/@workingSets[name='Platform%20Releng%20Tests']"/>
         </predicate>
       </workingSet>
+      <workingSet
+          name="Platform Documentation">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.platform.doc.user"
+              relativePathPattern="eclipse.platform.common/.*"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Releng">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.rcp"
+              relativePathPattern="eclipse.platform.releng/.*"/>
+          <operand
+              xsi:type="workingsets:ExclusionPredicate"
+              excludedWorkingSet="//'releng.aggregator.workingsets'/@workingSets[name='Platform%20Releng%20Tests']"/>
+        </predicate>
+      </workingSet>
+      <workingSet
+          name="Platform Releng Tests">
+        <predicate
+            xsi:type="predicates:AndPredicate">
+          <operand
+              xsi:type="predicates:RepositoryPredicate"
+              project="org.eclipse.rcp"
+              relativePathPattern="eclipse.platform.releng/.*"/>
+          <operand
+              xsi:type="predicates:NamePredicate"
+              pattern=".*tests?.*"/>
+        </predicate>
+      </workingSet>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        label="CBI Aggregator">
+      <requirement
+          name="org.eclipse.cbi.p2repo.aggregator.editor.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.cbi.p2repo.aggregator.analyzer.editor.feature.feature.group"/>
+      <repository
+          url="https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly/latest"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        label="m2e">
+      <requirement
+          name="org.eclipse.m2e.pde.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.m2e.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.m2e.lemminx.feature.feature.group"/>
+      <repository
+          url="https://download.eclipse.org/technology/m2e/snapshots/latest"/>
+      <repository
+          url="https://download.eclipse.org/webtools/CI/3.32.0/I-latest/repository"/>
     </setupTask>
     <stream
         name="master"
@@ -751,7 +815,7 @@
       <setupTask
           xsi:type="setup:EclipseIniTask"
           option="-Doomph.redirection.platform.releng.aggregator"
-          value="=https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.releng.aggregator/master/oomph/->${github.clone.platform.releng.aggregator.location|uri}/oomph/"
+          value="=https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.releng.aggregator/master/oomph/Platform.setup->${github.clone.platform.releng.aggregator.location|uri}/oomph/Platform.setup"
           vm="true"/>
     </stream>
     <description>The Platform Releng Agrregator components, including the Platform's products</description>
@@ -777,6 +841,12 @@
           <value>remoteURI</value>
         </detail>
       </annotation>
+      <configSections
+          name="branch">
+        <properties
+            key="autoSetupRebase"
+            value="always"/>
+      </configSections>
       <description>Platform Releng Build Tools</description>
     </setupTask>
     <setupTask
@@ -799,7 +869,8 @@
       </targlet>
     </setupTask>
     <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask">
+        xsi:type="setup.workingsets:WorkingSetTask"
+        id="releng.build.workingsets">
       <workingSet
           name="Platform Releng Build Tools">
         <predicate
@@ -815,74 +886,8 @@
         label="Master"/>
     <description>The Platform Releng Build Tools</description>
   </project>
-  <project href="https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.resources/master/bundles/org.eclipse.core.resources.releng/platformResources.setup#/"/>
-  <project href="https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.runtime/master/bundles/org.eclipse.core.runtime.releng/platformRuntime.setup#/"/>
   <project href="https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.swt/master/bundles/org.eclipse.swt.tools/Oomph/platformSwt.setup#/"/>
-  <project href="https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.team/master/bundles/org.eclipse.team.releng/platformTeam.setup#/"/>
-  <project href="https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.text/master/org.eclipse.text.releng/platformText.setup#/"/>
-  <project href="https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.ua/master/org.eclipse.ua.releng/platformUa.setup#/"/>
   <project href="https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.ui/master/releng/org.eclipse.ui.releng/platformUi.setup#/"/>
-  <project name="ui.tools"
-      label="UI Tools">
-    <setupTask
-        xsi:type="git:GitCloneTask"
-        id="github.clone.platform.ui.tools"
-        remoteURI="eclipse-platform/eclipse.platform.ui.tools"
-        pushURI="">
-      <annotation
-          source="http://www.eclipse.org/oomph/setup/InducedChoices">
-        <detail
-            key="inherit">
-          <value>github.remoteURIs</value>
-        </detail>
-        <detail
-            key="label">
-          <value>Platform UI Github Repository</value>
-        </detail>
-        <detail
-            key="target">
-          <value>remoteURI</value>
-        </detail>
-      </annotation>
-      <description>Platform UI Tools</description>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask">
-      <targlet
-          name="Platform UI Tools"
-          activeRepositoryList="Nebula+EMF+GEF">
-        <requirement
-            name="*"/>
-        <sourceLocator
-            rootFolder="${github.clone.platform.ui.tools.location}"/>
-        <repositoryList
-            name="Nebula+EMF+GEF">
-          <repository
-              url="https://download.eclipse.org/nebula/snapshot"/>
-          <repository
-              url="https://download.eclipse.org/modeling/emf/emf/builds/milestone/latest"/>
-          <repository
-              url="https://download.eclipse.org/tools/gef/updates/milestones"/>
-        </repositoryList>
-      </targlet>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.workingsets:WorkingSetTask">
-      <workingSet
-          name="Platform UI Tools">
-        <predicate
-            xsi:type="predicates:AndPredicate">
-          <operand
-              xsi:type="predicates:RepositoryPredicate"
-              project="org.eclipse.e4.core.tools.feature"/>
-        </predicate>
-      </workingSet>
-    </setupTask>
-    <stream
-        name="master"
-        label="Master"/>
-    <description>The Platform UI Tools support</description>
-  </project>
   <project name="website"
       label="Website">
     <setupTask
@@ -905,6 +910,12 @@
           <value>remoteURI</value>
         </detail>
       </annotation>
+      <configSections
+          name="branch">
+        <properties
+            key="autoSetupRebase"
+            value="always"/>
+      </configSections>
       <description>Platform Website</description>
     </setupTask>
     <setupTask

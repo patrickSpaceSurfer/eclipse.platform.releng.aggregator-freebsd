@@ -15,11 +15,6 @@
 
 set -e
 
-pushd centos-gtk3-metacity/7-gtk3
-echo "Building Centos 7 docker image"
-docker build --pull -t eclipse/platformreleng-centos-gtk3-metacity:7 .
-popd
-
 pushd centos-gtk3-metacity/8-swtBuild
 echo "Building Centos 8 swt build image"
 docker build --pull -t eclipse/platformreleng-centos-swt-build:8 .
@@ -28,16 +23,6 @@ popd
 pushd centos-gtk3-metacity/8-gtk3
 echo "Building Centos 8 docker image"
 docker build --pull -t eclipse/platformreleng-centos-gtk3-metacity:8 .
-popd
-
-pushd ubuntu-gtk3-metacity/18.04-gtk3
-echo "Building Ubuntu 18.04 docker image"
-docker build --pull -t eclipse/platformreleng-ubuntu-gtk3-metacity:18.04 .
-popd
-
-pushd ubuntu-gtk3-metacity/20.04-gtk3
-echo "Building Ubuntu 20.04 docker image"
-docker build --pull -t eclipse/platformreleng-ubuntu-gtk3-metacity:20.04 .
 popd
 
 pushd ubuntu-gtk3-metacity/22.04-gtk3

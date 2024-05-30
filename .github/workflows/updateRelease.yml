@@ -1,0 +1,53 @@
+name: Update For Next Release
+
+on:
+  workflow_call:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    if: contains(github.event.milestone.description, 'Release') 
+    steps:
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      with:
+        fetch-depth: 0
+        ref: master
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@07fbbe97d97ef44336b7382563d66743297e442f # v4.5
+      with:
+        maven-version: 3.9.1
+    - name: Set up JDK
+      uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0 # v3.13.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Update Versions
+      run: >-
+          mvn -U -Pbuild-individual-bundles -ntp
+          org.eclipse.tycho:tycho-versions-plugin:4.0.0-SNAPSHOT:set-version -DnewVersion=${{ github.event.milestone.title }}.0-SNAPSHOT
+          org.eclipse.tycho:tycho-versions-plugin:4.0.0-SNAPSHOT:set-parent-version -DnewParentVersion=${{ github.event.milestone.title }}.0-SNAPSHOT
+    - name: Build and Bump Versions
+      uses: Wandalen/wretry.action@a163f62ae554a8f3cbe27b23db15b60c0ae2e93c # master
+      with:
+        attempt_delay: 120000
+        attempt_limit: 10
+        command: >-
+            mvn -U -Pbuild-individual-bundles -ntp
+            clean verify
+            -DskipTests
+            -Dcompare-version-with-baselines.skip=false
+            org.eclipse.tycho:tycho-versions-plugin:4.0.0-SNAPSHOT:bump-versions -Dtycho.bump-versions.increment=100
+    - name: Create Pull Request for Release ${{ github.event.milestone.title }}
+      uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
+      with:
+        commit-message: Update for release ${{ github.event.milestone.title }}
+        branch: update_R${{ github.event.milestone.title }}
+        title: Update for release ${{ github.event.milestone.title }}
+        body: A new release milstone was created, please review the changes and merge if appropriate.
+        delete-branch: true
+        milestone: ${{ github.event.milestone.number }}
+        add-paths: |
+            pom.xml
+            **/pom.xml
+            **/*.MF
+

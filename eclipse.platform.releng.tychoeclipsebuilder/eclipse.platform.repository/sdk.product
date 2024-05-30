@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Eclipse SDK" uid="org.eclipse.sdk.ide" id="org.eclipse.sdk.ide" application="org.eclipse.ui.ide.workbench" version="4.24.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="Eclipse SDK" uid="org.eclipse.sdk.ide" id="org.eclipse.sdk.ide" application="org.eclipse.ui.ide.workbench" version="4.30.0.qualifier" type="features" includeLaunchers="true" autoIncludeRequirements="true">
 
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
-      <programArgs>--launcher.defaultAction openFile  --launcher.appendVmargs
+      <programArgs>--launcher.defaultAction openFile --launcher.appendVmargs
       </programArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=11 -Dosgi.dataAreaRequiresExplicitInit=true -Dorg.eclipse.swt.graphics.Resource.reportNonDisposed=true -Xms256m -Xmx2048m --add-modules=ALL-SYSTEM
+      <vmArgs>-Dosgi.requiredJavaVersion=17 -Dosgi.dataAreaRequiresExplicitInit=true -Dorg.eclipse.swt.graphics.Resource.reportNonDisposed=true --add-modules=ALL-SYSTEM -Dorg.slf4j.simpleLogger.defaultLogLevel=off -Djava.security.manager=allow
       </vmArgs>
       <vmArgsMac>-Xdock:icon=../Resources/Eclipse.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
@@ -66,7 +66,7 @@ downloadable archives (&quot;Downloads&quot;).
     include plug-ins (&quot;Plug-ins&quot;), plug-in fragments (&quot;Fragments&quot;), and
     features (&quot;Features&quot;).
 -   Each Plug-in or Fragment may be packaged as a sub-directory or JAR
-    (Java&#8482; ARchive) in a directory named &quot;plugins&quot;.
+    (Java™ ARchive) in a directory named &quot;plugins&quot;.
 -   A Feature is a bundle of one or more Plug-ins and/or Fragments and
     associated material. Each Feature may be packaged as a sub-directory in a
     directory named &quot;features&quot;. Within a Feature, files named &quot;feature.xml&quot; may
@@ -188,15 +188,24 @@ United States, other countries, or both.
    </features>
 
    <configurations>
+      <plugin id="org.apache.aries.spifly.dynamic.bundle" autoStart="true" startLevel="2" />
       <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <plugin id="slf4j.simple" autoStart="true" startLevel="2" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
       <property name="eclipse.buildId" value="${unqualifiedVersion}.${buildQualifier}" />
       <property name="org.eclipse.update.reconcile" value="false" />
+      <property name="osgi.instance.area.default" value="@user.home/workspace" />
+      <property name="osgi.instance.area.default" value="@user.home/Documents/workspace" os="macosx" />
    </configurations>
+
+   <repositories>
+      <repository location="https://download.eclipse.org/eclipse/updates/4.30" name="The Eclipse Project Updates" enabled="true" />
+      <repository location="https://download.eclipse.org/releases/2023-12" name="2023-12" enabled="true" />
+   </repositories>
 
 </product>

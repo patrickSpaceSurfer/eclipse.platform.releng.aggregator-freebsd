@@ -5,11 +5,15 @@ This repo is used to build the Eclipse SDK which provides the framework for Ecli
 To clone it, it is recommended to use one of the URLs found on the following website: 
 https://github.com/eclipse-platform/eclipse.platform.releng.aggregator
 
-An anonymous clone can be done via the following command:
+An anonymous clone can be done via the following commands:
 
 ```
 git clone https://github.com/eclipse-platform/eclipse.platform.releng.aggregator.git
+cd eclipse.platform.releng.aggregator
+git submodule update --init --recursive
 ```
+
+The latter command will clone all submodules.
 
 How to build the Eclipse SDK
 ----------------------------
@@ -33,19 +37,54 @@ git submodule update
 mvn clean verify  -DskipTests=true
 
 # find the results in
-# eclipse.platform.releng.tychoeclipsebuilder/sdk/target/products/*
+# eclipse.platform.releng.tychoeclipsebuilder/eclipse.platform.repository/target/products
+```
+
+Build with custom compiler
+--------------------------
+
+To compile the build itself with a custom compiler perform the follwoing step after cloning the submodules:
+
+```
+# compile local version
+mvn clean install -f eclipse.jdt.core/org.eclipse.jdt.core.compiler.batch -DlocalEcjVersion=99.99
+
+# run build with local compiler
+mvn clean verify  -DskipTests=true -Dcbi-ecj-version=99.99
 ```
 
 Build requirements
 ------------------
 
-The build commands require the installation and setup of Java 11 or higher and Maven version 3.5.4 or higher.
+The build commands require the installation and setup of Java 17 or higher and Maven version 3.5.4 or higher.
 See also the complete instructions on the [Platform Build wiki](https://wiki.eclipse.org/Platform-releng/Platform_Build "Platform Build"). 
 Note, it is highly recommended to use toolchains.xml and -Pbree-libs as decribed in [Using BREE Libs](https://wiki.eclipse.org/Platform-releng/Platform_Build#Using_BREE_Libs "Using BREE Libs").
+
+Integration builds
+------------------
+
+The integrations (nightly) build jobs are hosted on Jenkins instance https://ci.eclipse.org/releng/job/Builds/.
+
+The job with the highest release number is the one that builds nightly SDK build, like https://ci.eclipse.org/releng/job/Builds/job/I-build-4.27/ job for 4.27 SDK.
+
+- The build artifacts and test results are accessible at https://download.eclipse.org/eclipse/downloads/
+- If the tests fail to start, test jobs for each platform can be found at https://ci.eclipse.org/releng/view/Builds/job/AutomatedTests/
+- If the build is successful but SDK is broken and shouldn't be used, the build can be marked as unstable via https://ci.eclipse.org/releng/job/Builds/job/markUnstable/
+- Weekly maven snapshots are [built on Jenkins](https://ci.eclipse.org/releng/view/Publish%20to%20Maven/) and available at https://repo.eclipse.org/content/repositories/eclipse-snapshots/
+
+Milestone and release tasks
+-----------------
+See [Releng-Tasks 2.0](RELEASE.md) (includes links to schedule, calendar etc)
 
 Performance Tests
 -----------------
 See [Performance README.md](production/README.md)
+
+How to contribute
+-----------------
+Contributions to Eclipse Platform are most welcome. There are many ways to contribute,
+from entering high quality bug reports, to contributing code or documentation changes.
+For a complete guide, see https://github.com/eclipse-platform/.github/blob/main/CONTRIBUTING.md.
 
 Additional informations
 -----------------------

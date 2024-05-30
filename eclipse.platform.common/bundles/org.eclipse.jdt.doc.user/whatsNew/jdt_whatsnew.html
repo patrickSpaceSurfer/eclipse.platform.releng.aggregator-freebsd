@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="copyright" content="Copyright (c) Eclipse contributors and others 2020. This page is made available under license. For full details see the LEGAL in the documentation book that contains this page."/>
+<meta http-equiv="Content-Language" content="en-us"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="STYLESHEET" href="../book.css" type="text/css"/>
+<style type="text/css">
+body {max-width: 900px;}
+table.news col.title {width: 30%;}
+/*img {max-width: 520px;}*/
+table.news {table-layout: fixed; border-collapse: collapse; width: 100%;}
+table.news td {border-top: solid thin black; padding: 10px; overflow: visible;}
+table.news tr {vertical-align: top;}
+table.news tr td.section {font-size: 20px; font-weight: bold;}
+table.news tr td.title {vertical-align: top; font-weight: bold;}
+table.news tr td.content {vertical-align: top;}
+ul {padding-left: 13px;}
+</style>
+<title>What's New in Eclipse 4.30 (JDT)</title>
+</head>
+
+<body>
+<h2>What's New in Eclipse 4.30 (JDT)</h2>
+<p>Here are descriptions of some of the more interesting or significant changes made to the Java development tools (JDT)
+for the 4.30 release of Eclipse.
+They are grouped into:</p>
+<ul> <!-- NOTE: Sync ../topics_WhatsNew.xml with this! -->
+  	<li><a href="#Java21">New Java&trade; Language Features</a></li>
+	<!--li><a href="#JavaCompiler">Java Compiler</a></li-->
+  	<!--li><a href="#JUnit">JUnit</a></li-->
+	<li><a href="#JavaEditor">Java Editor</a></li>
+	<!--li><a href="#JavaViewsAndDialogs">Java Views and Dialogs</a></li-->
+	<!--li><a href="#JavaFormatter">Java Formatter</a></li-->
+	<!--li><a href="#Debug">Debug</a></li-->
+	<li><a href="#JDTDev">JDT Developers</a></li>
+</ul>
+
+<p>See also the <b><a href="../../org.eclipse.platform.doc.user/whatsNew/platform_whatsnew.html">Eclipse Platform What's New</a></b>
+document for changes in the Platform.</p>
+<p>We also recommend to read the <a href="../tips/jdt_tips.html">Tips and Tricks</a>.</p>
+<br/>
+
+<!-- ****************** START OF N&N TABLE ****************** -->
+<table class="news">
+<colgroup>
+  <col class="title" />
+  <col />
+</colgroup>
+<tbody>
+
+  <!-- ******************* Java 21 Support ************************************* -->
+  <tr>
+    <td id="Java21" class="section" colspan="2">
+    <h2>New Java&trade; Language Features</h2>
+    </td>
+  </tr>
+  <tr id="Java_21"> <!-- https://github.com/eclipse-jdt/eclipse.jdt.core/issues/1396 -->
+      <td class="title">Java Language Features</td>
+      <td class="content">
+          <p>
+          The release notably includes the following Java features:
+           <br/>
+           <a href="https://openjdk.java.net/jeps/440" target="_blank"> JEP 440: Record Patterns</a>.
+           <br/>
+           <a href="https://openjdk.java.net/jeps/441" target="_blank"> JEP 441: Pattern Matching for Switch</a>.
+           </p>
+      </td>
+  </tr>
+  <!-- ******************* End of Java 21 Support ************************************* -->
+
+  <!-- ******************* JUnit ************************************* -->
+  <!--tr>
+    <td id="JUnit" class="section" colspan="2">
+    <h2>JUnit</h2>
+    </td>
+  </tr-->
+  <!-- ******************* End of JUnit ************************************* -->
+
+  <!-- ******************* Java Editor ************************************* -->
+  <tr>
+    <td id="JavaEditor" class="section" colspan="2">
+    <h2>Java Editor </h2>
+    </td>
+  </tr>
+  <tr id="add-default-case-quick-fix">
+    <!-- https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/783 -->
+    <td class="title">Quick Fix to add default case</td>
+    <td class="content">
+      You can use the new <b>Quick Fix (Ctrl+1)</b> to add the missing <code>default</code> case to an enhanced switch statement. For example,
+      <p><img src="images/add_default_case.png" alt="add default case quick fix"/></p>
+      will result in:
+      <p><img src="images/add_default_case_result.png" alt="result of add default case quick fix"/></p>
+    </td>
+  </tr>
+  <tr id="remove-default-case-quick-fix">
+    <!-- https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/850 -->
+    <td class="title">Quick Fix to remove default case</td>
+    <td class="content">
+      You can use the new <b>Quick Fix (Ctrl+1)</b> to remove the <code>default</code> case when it is present with unconditional pattern in a switch. For example,
+      <p><img src="images/remove_default_case.png" alt="remove default case quick fix"/></p>
+      will result in:
+      <p><img src="images/remove_default_case_result.png" alt="result of remove default case quick fix"/></p>
+    </td>
+  </tr>
+  <tr id="insert-break-statement">
+    <!-- https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/881 -->
+    <td class="title">Quick Fix to insert break statement</td>
+    <td class="content">
+      You can use the new <b>Quick Fix (Ctrl+1)</b> to insert the <code>break</code> statement when there is an illegal fall-through to a pattern in a switch statement.
+      For example,
+      <p><img src="images/insert_break.png" alt="insert break statement quick fix"/></p>
+      will result in:
+      <p><img src="images/insert_break_result.png" alt="result of insert break statement quick fix"/></p>
+    </td>
+  </tr>
+  <tr id="deprecated-cleanup">
+    <!-- https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/722 -->
+    <td class="title">Cleanup and quick fix to replace deprecated method calls</td>
+    <td class="content">
+      A new cleanup has been added to the <b>Source &gt; Clean Up &gt; Source Fixing</b> tab page to replace deprecated method calls with inlined content.  Choosing this option will inline
+      the implementation of the deprecated method if and only if:
+      <ol>
+      <li>The deprecated method has Javadoc that specifies a @deprecated tag which ends with "use {@link ...}" or "replace by {@link ...}"</li>
+      <li>The {@link ...} tag refers to a method</li>
+      <li>The linked method is actually called in the implementation of the deprecated method</li>
+      <li>Methods and fields accessed in the linked method are visible at the location it will be inlined (e.g. using a package private method is ok to call if in same package)</li>
+      </ol>
+      For example, cleaning up the following:
+      <p><img src="images/deprecated-before.png" alt="deprecated method call to inline"/></p>
+      will result in inlining the deprecated foo() call in foo2:
+      <p><img src="images/deprecated-after.png" alt="result of deprecated method call inline"/></p>
+      <p>The functionality is also available as a quick fix for an individual call to a deprecated method that is marked with warning or error.  One can also select a deprecated method call and initiate as a quick assist (select call and click <b>CTRL + 1</b>).</p>
+    </td>
+  </tr>
+  <tr id="constant-renaming">
+    <!-- https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/749 -->
+    <td class="title">Quick assist to rename constant fields</td>
+    <td class="content">
+      A new quick assist has been added to rename static constant fields to follow a standard syntax using upper-case and underscores rather than camel case.
+      To use: select the constant and click <b>CTRL+1</b>.
+      For example,
+      <p><img src="images/constant-renaming.png" alt="rename constant quick assist"/></p>
+      will offer to rename the constant "valConstant1" to "VAL_CONSTANT1".
+    </td>
+  </tr>
+  <!-- ******************* End of Java Editor ************************************* -->
+
+  <!-- ******************* Java Views and Dialogs ************************************* -->
+  <!--tr>
+    <td id="JavaViewsAndDialogs" class="section" colspan="2">
+    <h2>Java Views and Dialogs</h2>
+    </td>
+  </tr-->
+  <!-- ******************* End of Java Views and Dialogs ************************************* -->
+
+  <!-- ******************* Java Compiler ************************************* -->
+  <!--tr>
+    <td id="JavaCompiler" class="section" colspan="2">
+    <h2>Java Compiler</h2>
+    </td>
+  </tr-->
+  <!-- ******************* End of Java Compiler ************************************* -->
+
+  <!-- ******************* Java Formatter ************************************* -->
+  <!--tr>
+    <td id="JavaFormatter" class="section" colspan="2">
+    <h2>Java Formatter </h2>
+    </td>
+  </tr-->
+  <!-- ******************* End of Java Formatter ************************************* -->
+  
+  <!-- *********************** Debug ******************************** -->
+  <!--tr>
+    <td id="Debug" class="section" colspan="2">
+    <h2>Debug</h2>
+    </td>
+  </tr-->
+  <!--************************ End of Debug ******************************** -->
+
+  <!-- *********************** JDT Developers ******************************** -->
+  <tr>
+    <td id="JDTDev" class="section" colspan="2">
+    <h2>JDT Developers</h2>
+    </td>
+  </tr>
+  <tr id="jdt-ui-pushdown-jdt-manipulations">
+    <!-- https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/783 -->
+    <td class="title">Pushdown of refactors and proposals to jdt.manipulations</td>
+    <td class="content">
+      A significant amount of code was pushed down from org.eclipse.jdt.ui into org.eclipse.jdt.core.manipulations, specifically most of the proposal and refactor operations. This will allow these operations to be used in a headless environment. 
+    </td>
+  </tr>
+  <!-- *********************** End of JDT Developers ******************************** -->
+  <!--tr><td colspan="2"/></tr-->
+</tbody>
+</table>
+<!-- ****************** END OF N&N TABLE ****************** -->
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+name: Prepare Next Release
+on:
+  milestone:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    if: contains(github.event.milestone.description, 'Release')
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@07fbbe97d97ef44336b7382563d66743297e442f # v4.5
+      with:
+        maven-version: 3.9.2
+    - id: get-release-name
+      run: |
+        name=$(echo ${{ github.event.milestone.due_on }} | cut -d- -f-2)
+        echo "name=$name" >> $GITHUB_OUTPUT
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      with:
+        ref: master
+    - name: Set up JDK
+      uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0 # v3.13.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Update Main Versions
+      run: mvn -U -ntp -f eclipse-platform-parent org.eclipse.tycho:tycho-versions-plugin:4.0.2:set-version -DnewVersion=${{ github.event.milestone.title }}.0-SNAPSHOT -Dmodules=../eclipse.platform.releng.prereqs.sdk
+    - name: Update Release Versions
+      run: mvn -ntp -f eclipse-platform-parent/pom.xml --non-recursive org.eclipse.tycho:tycho-versions-plugin:4.0.2:set-property -Dproperties=releaseNumberSDK,releaseNumberPlatform,releaseName -DnewReleaseName=${{ steps.get-release-name.outputs.name }} -DnewReleaseNumberSDK=${{ github.event.milestone.title }} -DnewReleaseNumberPlatform=${{ github.event.milestone.title }}
+    - name: Create Pull Request for Release ${{ github.event.milestone.title }}
+      uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
+      with:
+        commit-message: Prepare Release ${{ github.event.milestone.title }}
+        branch: prepare_R${{ github.event.milestone.title }}
+        title: Prepare Release ${{ github.event.milestone.title }}
+        body: A new Release Milstone was created, please review the changes and merge if appropriate.
+        delete-branch: true
+        milestone: ${{ github.event.milestone.number }}
+        add-paths: |
+            eclipse-platform-parent/pom.xml
+            eclipse.platform.releng.prereqs.sdk/pom.xml
+

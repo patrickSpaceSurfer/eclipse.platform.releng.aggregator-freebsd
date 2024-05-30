@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.platform"
+      label="%featureName"
+      version="4.30.0.qualifier"
+      provider-name="%providerName"
+      license-feature="org.eclipse.license"
+      license-feature-version="0.0.0">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <includes
+         id="org.eclipse.rcp"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.equinox.p2.user.ui"
+         version="0.0.0"
+         optional="true"/>
+
+   <includes
+         id="org.eclipse.help"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.apache.ant"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ant.core"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.jcraft.jsch"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.compare.core"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.compare"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.compare.win32"
+         os="win32"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.filebuffers"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.filesystem"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.net"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.net.linux"
+         os="linux"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.net.win32"
+         os="win32"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.net.win32.x86_64"
+         os="win32"
+         arch="x86_64"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.resources"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.debug.core"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.debug.ui"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.e4.ui.ide"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.equinox.event"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ltk.core.refactoring"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ltk.ui.refactoring"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.platform"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.platform.doc.user"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.search"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.text.quicksearch"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.team.core"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.team.ui"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.text"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jface.text"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jsch.core"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.jsch.ui"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.console"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.intro"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.intro.universal"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.cheatsheets"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.browser"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.genericeditor"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.monitoring"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.navigator"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.navigator.resources"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.net"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.workbench.texteditor"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.views"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.editors"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.externaltools"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.ide"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.ide.application"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.win32"
+         ws="win32"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.filesystem.linux.x86_64"
+         os="linux"
+         arch="x86_64"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.filesystem.macosx"
+         os="macosx"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.resources.win32.x86_64"
+         os="win32"
+         arch="x86_64"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.filesystem.win32.x86_64"
+         os="win32"
+         arch="x86_64"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.filesystem.linux.ppc64le"
+         os="linux"
+         arch="ppc64le"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.filesystem.linux.aarch64"
+         os="linux"
+         arch="aarch64"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.variables"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.forms"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.views.properties.tabbed"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.equinox.security"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.equinox.security.ui"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.equinox.security.win32.x86_64"
+         os="win32"
+         arch="x86_64"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.equinox.security.macosx"
+         os="macosx"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.equinox.security.linux"
+         os="linux"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.externaltools"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.themes"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.runtime"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.intro.quicklinks"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.team.genericeditor.diff.extension"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.urischeme"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ui.views.log"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.debug.ui.launchview"
+         version="0.0.0"/>
+
+</feature>

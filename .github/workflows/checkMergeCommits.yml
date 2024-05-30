@@ -1,0 +1,25 @@
+name: Check for merge commits
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  message-check:
+    name: Block Merge Commits
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Block Merge Commits
+        uses: Morishiri/block-merge-commits-action@a4554c78def8d874966a8d1e20e2971121443755
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update Message
+        if: ${{ failure() }}
+        uses: actions/github-script@e69ef5462fd455e02edcaf4dd7708eda96b9eda0 # v7.0.0
+        with:
+          script: |
+            core.setFailed('Please always use reabase to update your branch')

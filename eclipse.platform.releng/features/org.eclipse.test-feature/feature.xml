@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.test"
+      label="%featureName"
+      version="3.8.700.qualifier"
+      provider-name="%providerName"
+      license-feature="org.eclipse.license"
+      license-feature-version="0.0.0">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <plugin
+         id="org.eclipse.ant.optional.junit"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.test"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.test.source"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.test.performance"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.test.performance.win32"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.junit"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.hamcrest.core"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.objenesis"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.mockito.mockito-core"
+         version="0.0.0"/>
+
+   <plugin
+         id="net.bytebuddy.byte-buddy"
+         version="0.0.0"/>
+
+   <plugin
+         id="net.bytebuddy.byte-buddy-agent"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.core.tests.harness"
+         version="0.0.0"/>
+
+   <plugin
+         id="junit-jupiter-api"
+         version="0.0.0"/>
+
+   <plugin
+         id="assertj-core"
+         version="0.0.0"/>
+
+</feature>

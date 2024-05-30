@@ -1,0 +1,8 @@
+{
+    "Streams": [
+        "4.30"
+    ],
+    "Branches": {
+		"4.30": "R4_30_maintenance"
+    }
+}
