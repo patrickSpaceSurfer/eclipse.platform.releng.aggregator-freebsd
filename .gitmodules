@@ -28,22 +28,22 @@
   url = https://github.com/eclipse-platform/eclipse.platform.debug.git
 [submodule "eclipse.platform.releng"]
   path = eclipse.platform.releng
-  url = https://github.com/eclipse-platform/eclipse.platform.releng.git
+  url = https://github.com/patrickSpaceSurfer/eclipse.platform.releng-freebsd.git
 [submodule "eclipse.platform.resources"]
   path = eclipse.platform.resources
-  url = https://github.com/eclipse-platform/eclipse.platform.resources.git
+  url = https://github.com/patrickSpaceSurfer/eclipse.platform.resources-freebsd.git
 [submodule "eclipse.platform.runtime"]
   path = eclipse.platform.runtime
-  url = https://github.com/eclipse-platform/eclipse.platform.runtime.git
+  url = https://github.com/patrickSpaceSurfer/eclipse.platform.runtime-freebsd.git
 [submodule "eclipse.platform.swt"]
   path = eclipse.platform.swt
-  url = https://github.com/eclipse-platform/eclipse.platform.swt.git
+  url = https://github.com/patrickSpaceSurfer/eclipse.platform.swt-freebsd.git
 [submodule "eclipse.platform.swt.binaries"]
   path = eclipse.platform.swt.binaries
-  url = https://github.com/eclipse-platform/eclipse.platform.swt.binaries.git
+  url = https://github.com/patrickSpaceSurfer/eclipse.platform.swt-freebsd.git
 [submodule "eclipse.platform.team"]
   path = eclipse.platform.team
-  url = https://github.com/eclipse-platform/eclipse.platform.team.git
+  url = https://github.com/patrickSpaceSurfer/eclipse.platform.team-freebsd.git
 [submodule "eclipse.platform.text"]
   path = eclipse.platform.text
   url = https://github.com/eclipse-platform/eclipse.platform.text.git
@@ -52,19 +52,19 @@
   url = https://github.com/eclipse-platform/eclipse.platform.ua.git
 [submodule "eclipse.platform.ui"]
   path = eclipse.platform.ui
-  url = https://github.com/eclipse-platform/eclipse.platform.ui.git
+  url = https://github.com/patrickSpaceSurfer/eclipse.platform.ui-freebsd.git
 [submodule "rt.equinox.binaries"]
   path = rt.equinox.binaries
   url = https://github.com/eclipse-equinox/equinox.binaries.git
 [submodule "rt.equinox.bundles"]
   path = rt.equinox.bundles
-  url = https://github.com/eclipse-equinox/equinox.bundles.git
+  url = https://github.com/patrickSpaceSurfer/equinox.bundles-freebsd.git
 [submodule "rt.equinox.framework"]
   path = rt.equinox.framework
-  url = https://github.com/eclipse-equinox/equinox.framework.git
+  url = https://github.com/patrickSpaceSurfer/equinox.framework-freebsd.git
 [submodule "rt.equinox.p2"]
   path = rt.equinox.p2
-  url = https://github.com/eclipse-equinox/p2.git
+  url = https://github.com/patrickSpaceSurfer/eclipse-equinox-p2-freebsd.git
 [submodule "eclipse.platform.ui.tools"]
   path = eclipse.platform.ui.tools
   url = https://github.com/eclipse-platform/eclipse.platform.ui.tools.git
