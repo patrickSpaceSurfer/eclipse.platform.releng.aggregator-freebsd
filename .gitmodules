@@ -55,7 +55,7 @@
   url = https://github.com/patrickSpaceSurfer/eclipse.platform.ui-freebsd.git
 [submodule "rt.equinox.binaries"]
   path = rt.equinox.binaries
-  url = https://github.com/eclipse-equinox/equinox.binaries.git
+  url = https://github.com/patrickSpaceSurfer/equinox.binaries-freebsd.git
 [submodule "rt.equinox.bundles"]
   path = rt.equinox.bundles
   url = https://github.com/patrickSpaceSurfer/equinox.bundles-freebsd.git
