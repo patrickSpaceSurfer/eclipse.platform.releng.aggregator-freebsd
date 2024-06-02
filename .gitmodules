@@ -7,7 +7,7 @@
   url = https://github.com/eclipse-jdt/eclipse.jdt.core.git
 [submodule "eclipse.jdt.core.binaries"]
   path = eclipse.jdt.core.binaries
-  url = https://github.com/patrickSpaceSurfer/eclipse.platform.swt.binaries-freebsd.git
+  url = https://github.com/eclipse-jdt/eclipse.jdt.core.binaries.git
 [submodule "eclipse.jdt.debug"]
   path = eclipse.jdt.debug
   url = https://github.com/eclipse-jdt/eclipse.jdt.debug.git
@@ -40,7 +40,7 @@
   url = https://github.com/patrickSpaceSurfer/eclipse.platform.swt-freebsd.git
 [submodule "eclipse.platform.swt.binaries"]
   path = eclipse.platform.swt.binaries
-  url = https://github.com/patrickSpaceSurfer/eclipse.platform.swt-freebsd.git
+  url = https://github.com/patrickSpaceSurfer/eclipse.platform.swt.binaries-freebsd.git
 [submodule "eclipse.platform.team"]
   path = eclipse.platform.team
   url = https://github.com/patrickSpaceSurfer/eclipse.platform.team-freebsd.git
