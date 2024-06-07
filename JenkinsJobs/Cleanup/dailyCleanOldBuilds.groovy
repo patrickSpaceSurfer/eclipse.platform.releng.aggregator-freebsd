@@ -12,8 +12,6 @@ and other such scripts.
     numToKeep(5)
   }
 
-  jdk('oracle-jdk8-latest')
-
   label('centos-latest')
 
   triggers {
@@ -55,10 +53,8 @@ epRelDir=$(ssh genie.releng@projects-storage.eclipse.org ls -d --format=single-c
 ssh genie.releng@projects-storage.eclipse.org tar -C ${workspace} -xzf ${epRelDir}/eclipse-platform-*-linux-gtk-x86_64.tar.gz
 
 ssh genie.releng@projects-storage.eclipse.org wget -O ${workspace}/dailyCleanDownloads.sh https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.releng.aggregator/master/cje-production/cleaners/dailyCleanDownloads.sh
-ssh genie.releng@projects-storage.eclipse.org wget -O ${workspace}/cleanupNightlyRepo.sh https://raw.githubusercontent.com/eclipse-platform/eclipse.platform.releng.aggregator/master/cje-production/cleaners/cleanupNightlyRepo.sh
 
 ssh genie.releng@projects-storage.eclipse.org bash -x ${workspace}/dailyCleanDownloads.sh
-ssh genie.releng@projects-storage.eclipse.org bash -x ${workspace}/cleanupNightlyRepo.sh ${workspace}
 
 ssh genie.releng@projects-storage.eclipse.org rm -rf ${workingDir}/${JOB_NAME}*
     ''')
@@ -66,7 +62,7 @@ ssh genie.releng@projects-storage.eclipse.org rm -rf ${workingDir}/${JOB_NAME}*
 
   publishers {
     extendedEmail {
-      recipientList("sravankumarl@in.ibm.com")
+      recipientList("rahul.mohanan@ibm.com")
     }
   }
 }
