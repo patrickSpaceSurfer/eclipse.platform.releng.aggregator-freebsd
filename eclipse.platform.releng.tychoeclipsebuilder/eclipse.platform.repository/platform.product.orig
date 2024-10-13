@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="EclipseRT OSGi Starter Kit" uid="org.eclipse.rt.osgistarterkit.product" version="4.33.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="Eclipse Platform" uid="org.eclipse.platform.ide" id="org.eclipse.platform.ide" application="org.eclipse.ui.ide.workbench" version="4.24.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
-      <programArgs>-console -nosplash -consolelog -noexit
+      <programArgs>--launcher.defaultAction openFile --launcher.appendVmargs
       </programArgs>
-      <vmArgs>-Declipse.ignoreApp=true
+      <vmArgs>-Dosgi.requiredJavaVersion=11 -Dosgi.dataAreaRequiresExplicitInit=true -Dorg.eclipse.swt.graphics.Resource.reportNonDisposed=true -Xms40m -Xmx512m --add-modules=ALL-SYSTEM
       </vmArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      <vmArgsMac>-Xdock:icon=../Resources/Eclipse.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages/>
-
-   <launcher name="rt">
-      <freebsd icon="icon.xpm"/>
-      <macosx icon="rt.icns"/>
-      <win useIco="true">
-         <ico path="rt.ico"/>
+   <splash
+      location="org.eclipse.platform" />
+   <launcher name="eclipse">
+      <linux icon="icons/icon.xpm"/>
+      <macosx icon="icons/Eclipse.icns"/>
+      <win useIco="false">
          <bmp/>
       </win>
    </launcher>
@@ -179,17 +178,20 @@ United States, other countries, or both.
    </plugins>
 
    <features>
-      <feature id="org.eclipse.equinox.p2.core.feature"/>
-      <feature id="org.eclipse.equinox.core.feature"/>
+      <feature id="org.eclipse.platform"/>
+      <feature id="org.eclipse.equinox.p2.user.ui"/>
    </features>
 
    <configurations>
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.frameworkadmin.equinox" autoStart="true" startLevel="3" />
-      <plugin id="org.eclipse.equinox.p2.console" autoStart="true" startLevel="3" />
-      <plugin id="org.eclipse.equinox.simpleconfigurator.manipulator" autoStart="true" startLevel="3" />
-      <property name="eclipse.ignoreApp" value="true" />
-      <property name="osgi.noShutdown" value="true" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <property name="org.eclipse.update.reconcile" value="false" />
+      <property name="eclipse.buildId" value="${unqualifiedVersion}.${buildQualifier}" />
+      <property name="osgi.bundles.defaultStartLevel" value="4" />
    </configurations>
 
 </product>

@@ -207,9 +207,9 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.eclipse.core.filesystem.linux.x86_64"
-         os="linux"
-         arch="x86_64"
+         id="org.eclipse.core.filesystem.freebsd.amd64"
+         os="freebsd"
+         arch="amd64"
          version="0.0.0"/>
 
    <plugin
@@ -217,6 +217,7 @@
          os="macosx"
          version="0.0.0"/>
 
+<!--
    <plugin
          id="org.eclipse.core.filesystem.linux.ppc64le"
          os="linux"
@@ -228,6 +229,7 @@
          os="linux"
          arch="aarch64"
          version="0.0.0"/>
+-->
 
    <plugin
          id="org.eclipse.core.variables"
@@ -260,8 +262,8 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.eclipse.equinox.security.linux"
-         os="linux"
+         id="org.eclipse.equinox.security.freebsd"
+         os="freebsd"
          version="0.0.0"/>
 
    <plugin

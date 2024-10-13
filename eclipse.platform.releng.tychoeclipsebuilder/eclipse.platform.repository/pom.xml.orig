@@ -18,19 +18,11 @@
   <parent>
     <groupId>eclipse.platform.releng.tychoeclipsebuilder</groupId>
     <artifactId>eclipse.platform.releng.tychoeclipsebuilder</artifactId>
-    <version>4.33.0-SNAPSHOT</version>
+    <version>4.24.0-SNAPSHOT</version>
   </parent>
   <groupId>eclipse.platform.repository</groupId>
   <artifactId>eclipse.platform.repository</artifactId>
   <packaging>eclipse-repository</packaging>
-  <dependencies>
-    <dependency>
-      <groupId>eclipse.platform.releng.tychoeclipsebuilder</groupId>
-      <artifactId>eclipse-junit-tests</artifactId>
-      <version>${project.version}</version>
-      <type>pom</type>
-    </dependency>
-  </dependencies>
   <build>
     <plugins>
       <plugin>
@@ -53,8 +45,7 @@
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-p2-repository-plugin</artifactId>
         <configuration>
-          <includeAllDependencies>true</includeAllDependencies>
-          <includeAllSources>true</includeAllSources>
+        	<includeAllDependencies>true</includeAllDependencies>
         </configuration>
       </plugin>
       <plugin>
@@ -133,11 +124,9 @@
           <execution>
             <id>mirror-build</id>
             <phase>generate-resources</phase>
-<!-- Ignore eclipse-junit-tests artifacts for FreeBSD build
             <goals>
               <goal>mirror</goal>
             </goals>
--->
             <configuration>
               <source>
                 <!-- source repositories to mirror from -->
@@ -392,7 +381,6 @@ UNmHBQdtflW5G1L5fQggWG7V
             </goals>
             <configuration>
               <profile>SDKProfile</profile>
-              <installSources>true</installSources>
             </configuration>
           </execution>
           <execution>
@@ -404,7 +392,7 @@ UNmHBQdtflW5G1L5fQggWG7V
             <configuration>
               <formats>
                 <win32>zip</win32>
-                <freebsd>tar.gz</freebsd>
+                <linux>tar.gz</linux>
                 <macosx>tar.gz</macosx>
               </formats>
             </configuration>

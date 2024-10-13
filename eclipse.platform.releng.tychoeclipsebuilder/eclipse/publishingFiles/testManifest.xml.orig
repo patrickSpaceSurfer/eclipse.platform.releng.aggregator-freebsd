@@ -10,31 +10,21 @@
 
     <zipType name="Eclipse SDK">
       <platform
-        id="SWAARCH64"
-        name="Windows (ARM 64 bit version)"
-        fileName="eclipse-SDK-${BUILD_ID}-win32-aarch64.zip"></platform>
-      <platform
         id="SWX8664"
         name="Windows (64 bit version)"
         fileName="eclipse-SDK-${BUILD_ID}-win32-x86_64.zip"></platform>
       <platform
         id="SLG264"
-        name="FreeBSD (64 bit version)"
-        fileName="eclipse-SDK-${BUILD_ID}-freebsd-gtk-amd64.tar.gz"></platform>
-<!--
+        name="Linux (64 bit version)"
+        fileName="eclipse-SDK-${BUILD_ID}-linux-gtk-x86_64.tar.gz"></platform>
       <platform
         id="SLG2PPC64LE"
-        name="FreeBSD (64 bit version for Power PC)"
-        fileName="eclipse-SDK-${BUILD_ID}-freebsd-gtk-powerpc64.tar.gz"></platform>
-      <platform
-        id="SLG2PPC64BE"
-        name="FreeBSD (64 bit version for Power PC LE)"
-        fileName="eclipse-SDK-${BUILD_ID}-freebsd-gtk-powerpc64le.tar.gz"></platform>
+        name="Linux (64 bit version for Power PC)"
+        fileName="eclipse-SDK-${BUILD_ID}-linux-gtk-ppc64le.tar.gz"></platform>
       <platform
         id="SLG2AARCH64"
-        name="FreeBSD (64 bit version for AArch64)"
-        fileName="eclipse-SDK-${BUILD_ID}-freebsd-gtk-aarch64.tar.gz"></platform>
--->
+        name="Linux (64 bit version for AArch64)"
+        fileName="eclipse-SDK-${BUILD_ID}-linux-gtk-aarch64.tar.gz"></platform>
       <platform
         id="SMCC64"
         name="Mac OSX (64 bit version)"
@@ -43,6 +33,10 @@
         id="SMCCARM64"
         name="Mac OSX (64 bit version for Arm64/AArch64)"
         fileName="eclipse-SDK-${BUILD_ID}-macosx-cocoa-aarch64.dmg"></platform>     
+      <platform
+        id="SST"
+        name="Source Tarball"
+        fileName="eclipse-platform-sources-${BUILD_ID}.tar.xz"></platform>
 
       <!--
         <platform id="SAA2" name='Source Build (Source in .zip) (&lt;a href="srcIncludedBuildInstructions.html">instructions&lt;/a>)'
@@ -65,25 +59,21 @@
 
     <zipType name="Platform Runtime Binary">
       <platform
-        id="PWAARCH64"
-        name="Windows (ARM 64 bit version)"
-        fileName="eclipse-platform-${BUILD_ID}-win32-aarch64.zip"></platform>
-      <platform
         id="PWX8664"
         name="Windows (64 bit version)"
         fileName="eclipse-platform-${BUILD_ID}-win32-x86_64.zip"></platform>
       <platform
         id="PLG264"
-        name="FreeBSD (64 bit version)"
-        fileName="eclipse-platform-${BUILD_ID}-freebsd-gtk-amd64.tar.gz"></platform>
+        name="Linux (64 bit version)"
+        fileName="eclipse-platform-${BUILD_ID}-linux-gtk-x86_64.tar.gz"></platform>
       <platform
         id="PLG2PPC64LE"
-        name="FreeBSD (64 bit version for Power PC)"
-        fileName="eclipse-platform-${BUILD_ID}-freebsd-gtk-powerpc64.tar.gz"></platform>
+        name="Linux (64 bit version for Power PC)"
+        fileName="eclipse-platform-${BUILD_ID}-linux-gtk-ppc64le.tar.gz"></platform>
       <platform
         id="PLG2AARCH64"
-        name="FreeBSD (64 bit version for AArch64)"
-        fileName="eclipse-platform-${BUILD_ID}-freebsd-gtk-aarch64.tar.gz"></platform>
+        name="Linux (64 bit version for AArch64)"
+        fileName="eclipse-platform-${BUILD_ID}-linux-gtk-aarch64.tar.gz"></platform>
       <platform
         id="PMCC64"
         name="Mac OSX (64 bit version)"
@@ -111,25 +101,21 @@
 
     <zipType name="SWT">
       <platform
-        id="SWTWAARCH64"
-        name="Windows (ARM 64 bit version)"
-        fileName="swt-${BUILD_ID}-win32-win32-aarch64.zip"></platform>
-      <platform
         id="SWTWX86_64"
         name="Windows (64 bit version)"
         fileName="swt-${BUILD_ID}-win32-win32-x86_64.zip"></platform>
       <platform
         id="SWTLG64"
-        name="FreeBSD (64 bit version)"
-        fileName="swt-${BUILD_ID}-gtk-freebsd-amd64.zip"></platform>
+        name="Linux (64 bit version)"
+        fileName="swt-${BUILD_ID}-gtk-linux-x86_64.zip"></platform>
       <platform
         id="SWTLG2PPC64LE"
-        name="FreeBSD (64 bit version for Power PC)"
-        fileName="swt-${BUILD_ID}-gtk-freebsd-powerpc64.zip"></platform>
+        name="Linux (64 bit version for Power PC)"
+        fileName="swt-${BUILD_ID}-gtk-linux-ppc64le.zip"></platform>
       <platform
         id="SWTLG2AARCH64"
-        name="FreeBSD (64 bit version for AArch64)"
-        fileName="swt-${BUILD_ID}-gtk-freebsd-aarch64.zip"></platform>
+        name="Linux (64 bit version for AArch64)"
+        fileName="swt-${BUILD_ID}-gtk-linux-aarch64.zip"></platform>
       <platform
         id="SWTMCC64"
         name="Mac OSX (64 bit version)"
@@ -551,9 +537,6 @@
       name="org.eclipse.compare.tests"
       type="test" />
     <logFile
-      name="org.eclipse.core.contenttype.tests"
-      type="test" />
-    <logFile
       name="org.eclipse.core.expressions.tests"
       type="test" />
     <logFile
@@ -564,9 +547,6 @@
       type="test" />
     <logFile
       name="org.eclipse.core.tests.resources"
-      type="test" />
-    <logFile
-      name="org.eclipse.core.tests.resources.saveparticipant"
       type="test" />
     <logFile
       name="org.eclipse.core.tests.runtime"
@@ -716,9 +696,6 @@
       name="org.eclipse.text.tests"
       type="test" />
     <logFile
-      name="org.eclipse.tips.tests"
-      type="test" />
-    <logFile
       name="org.eclipse.ua.tests"
       type="test" />
     <logFile
@@ -744,9 +721,6 @@
       type="test" />
     <logFile
       name="org.eclipse.ui.tests.pluginchecks"
-      type="test" />
-    <logFile
-      name="org.eclipse.update.configurator.tests"
       type="test" />
 
   </logFiles>
